@@ -1,0 +1,17 @@
+##SetDirectory
+setwd("F:\\R Coursera\\data")
+
+##Download & Unzip File
+x <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+download.file (x, destfile = "F:\\R Coursera\\data\\household_power_consumption.zip")
+RawDataFile<- "F:\\R Coursera\\data\\household_power_consumption.txt"
+
+##Read Data into R
+RawData <- read.table(RawDataFile, header=TRUE, sep=";", na.strings="?")
+
+##Subset the dataset
+SubSetData <- RawData[RawData$Date %in% c("1/2/2007","2/2/2007"),]
+
+## Create DateTime Class
+SetTime <-strptime(paste(SubSetData$Date, SubSetData$Time, sep=" "),"%d/%m/%Y %H:%M:%S")
+finalData <- cbind(SetTime, SubSetData)
